@@ -2,8 +2,14 @@ package com.example.android.quakereport;
 
 public class Earthquake {
    private String location;
-   private long dateTimestamp;
+   private String dateTimestamp;
    private int magnitude;
+
+    public Earthquake(String location, String dateTimestamp, int magnitude) {
+        this.location = location;
+        this.dateTimestamp = dateTimestamp;
+        this.magnitude = magnitude;
+    }
 
     public String getLocation() {
         return location;
@@ -13,11 +19,11 @@ public class Earthquake {
         this.location = location;
     }
 
-    public long getDateTimestamp() {
+    public String getDateTimestamp() {
         return dateTimestamp;
     }
 
-    public void setDateTimestamp(long dateTimestamp) {
+    public void setDateTimestamp(String dateTimestamp) {
         this.dateTimestamp = dateTimestamp;
     }
 

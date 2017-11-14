@@ -12,7 +12,7 @@ import java.util.List;
 
 public class EarthquakeAdapter extends RecyclerView.Adapter<EarthquakeAdapter.EarthquakeViewHolder>{
 
-    List<Earthquake> mEarthquakeList;
+   private List<Earthquake> mEarthquakeList;
 
     public EarthquakeAdapter(List<Earthquake> mEarthquakeList) {
         this.mEarthquakeList = mEarthquakeList;
@@ -26,8 +26,8 @@ public class EarthquakeAdapter extends RecyclerView.Adapter<EarthquakeAdapter.Ea
 
     @Override
     public void onBindViewHolder(EarthquakeViewHolder holder, int position) {
-     holder.textViewMagnitude.setText(getItem(position).getMagnitude());
-     holder.textViewDate.setText(getItem(position).getDateTimestamp()+"");
+     holder.textViewMagnitude.setText(getItem(position).getMagnitude()+"");
+     holder.textViewDate.setText(getItem(position).getDateTimestamp());
      holder.textViewLocation.setText(getItem(position).getLocation());
     }
 
@@ -36,13 +36,13 @@ public class EarthquakeAdapter extends RecyclerView.Adapter<EarthquakeAdapter.Ea
         return mEarthquakeList.size();
     }
 
-    public class EarthquakeViewHolder extends RecyclerView.ViewHolder {
+     class EarthquakeViewHolder extends RecyclerView.ViewHolder {
 
-        public TextView textViewLocation;
-        public TextView textViewMagnitude;
-        public TextView textViewDate;
+         TextView textViewLocation;
+         TextView textViewMagnitude;
+         TextView textViewDate;
 
-        public EarthquakeViewHolder(View itemView) {
+         EarthquakeViewHolder(View itemView) {
             super(itemView);
             textViewMagnitude = itemView.findViewById(R.id.text_view_magnitude);
             textViewLocation = itemView.findViewById(R.id.text_view_location);
