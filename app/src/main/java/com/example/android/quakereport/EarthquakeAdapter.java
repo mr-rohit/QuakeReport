@@ -26,7 +26,7 @@ public class EarthquakeAdapter extends RecyclerView.Adapter<EarthquakeAdapter.Ea
 
     @Override
     public void onBindViewHolder(EarthquakeViewHolder holder, int position) {
-     holder.textViewMagnitude.setText(getItem(position).getMagnitude()+"");
+     holder.textViewMagnitude.setText(String.valueOf(getItem(position).getMagnitude()));
      holder.textViewDate.setText(getItem(position).getDateTimestamp());
      holder.textViewLocation.setText(getItem(position).getLocation());
     }
