@@ -29,6 +29,8 @@ public class EarthquakeAdapter extends RecyclerView.Adapter<EarthquakeAdapter.Ea
      holder.textViewMagnitude.setText(String.valueOf(getItem(position).getMagnitude()));
      holder.textViewDate.setText(getItem(position).getDateTimestamp());
      holder.textViewLocation.setText(getItem(position).getLocation());
+     holder.textViewTime.setText(getItem(position).getTimeTimestamp());
+     holder.textViewSpeed.setText(getItem(position).getSpeed());
     }
 
     @Override
@@ -41,12 +43,16 @@ public class EarthquakeAdapter extends RecyclerView.Adapter<EarthquakeAdapter.Ea
          TextView textViewLocation;
          TextView textViewMagnitude;
          TextView textViewDate;
+         TextView textViewTime;
+         TextView textViewSpeed;
 
          EarthquakeViewHolder(View itemView) {
             super(itemView);
             textViewMagnitude = itemView.findViewById(R.id.text_view_magnitude);
             textViewLocation = itemView.findViewById(R.id.text_view_location);
             textViewDate = itemView.findViewById(R.id.text_view_date);
+            textViewTime = itemView.findViewById(R.id.text_view_time);
+            textViewSpeed = itemView.findViewById(R.id.text_view_speed);
         }
     }
 

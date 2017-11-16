@@ -4,11 +4,31 @@ public class Earthquake {
    private String location;
    private String dateTimestamp;
    private int magnitude;
+   private String timeTimestamp;
+   private String speed;
 
-    public Earthquake(String location, String dateTimestamp, int magnitude) {
+    public String getSpeed() {
+        return speed;
+    }
+
+    public void setSpeed(String speed) {
+        this.speed = speed;
+    }
+
+    public String getTimeTimestamp() {
+        return timeTimestamp;
+    }
+
+    public void setTimeTimestamp(String timeTimestamp) {
+        this.timeTimestamp = timeTimestamp;
+    }
+
+    public Earthquake(String location, String dateTimestamp, int magnitude, String timeTimestamp , String speed) {
         this.location = location;
         this.dateTimestamp = dateTimestamp;
         this.magnitude = magnitude;
+        this.timeTimestamp = timeTimestamp;
+        this.speed = speed;
     }
 
     public String getLocation() {

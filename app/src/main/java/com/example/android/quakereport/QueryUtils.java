@@ -47,9 +47,10 @@ public class QueryUtils {
                 String location = jsonObject2.getString("title");
                 long date = jsonObject2.getLong("time");
                 int magnitude = jsonObject2.getInt("mag");
-                SimpleDateFormat simpleDateFormat = new SimpleDateFormat("MM/dd/yyyy");
+                SimpleDateFormat simpleDateFormatDate = new SimpleDateFormat("LLL dd, yyyy");
+                SimpleDateFormat simpleDateFormatTime = new SimpleDateFormat("h:mm a");
                 Date date1 = new Date(date);
-                earthquakes.add(new Earthquake(location, simpleDateFormat.format(date1), magnitude));
+                earthquakes.add(new Earthquake(getLocation(location), simpleDateFormatDate.format(date1), magnitude,simpleDateFormatTime.format(date1),getSpeed(location)));
             }
 
         } catch (JSONException e) {
@@ -61,5 +62,26 @@ public class QueryUtils {
 
         // Return the list of earthquakes
         return earthquakes;
+    }
+    public static String getSpeed(String s){
+        int index = -1;
+        if(s.contains("of")){
+            index  = s.indexOf("of");
+        }
+        if(index != -1){
+            return s.substring(0,index+2);
+        }
+        return s;
+    }
+
+    public static String getLocation(String s){
+        int index = -1;
+        if(s.contains("of")){
+            index  = s.indexOf("of");
+        }
+        if(index != -1){
+            return s.substring(index+3);
+        }
+        return s;
     }
 }
