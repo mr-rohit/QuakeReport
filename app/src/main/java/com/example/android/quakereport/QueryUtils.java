@@ -31,57 +31,6 @@ public class QueryUtils {
     private QueryUtils() {
     }
 
-    public static ArrayList<Earthquake> extractEarthquakes() {
 
-        // Create an empty ArrayList that we can start adding earthquakes to
-        ArrayList<Earthquake> earthquakes = new ArrayList<>();
 
-        try {
-            JSONObject jsonObject = new JSONObject(SAMPLE_JSON_RESPONSE);
-            JSONArray featuresJsonArray = jsonObject.getJSONArray("features");
-            Log.d("QueryUtils",featuresJsonArray.toString());
-            for (int i = 0; i < featuresJsonArray.length(); i++) {
-                JSONObject jsonObject1 = featuresJsonArray.getJSONObject(i);
-                JSONObject jsonObject2 = jsonObject1.getJSONObject("properties");
-                Log.d("QueryUtils1",jsonObject2.toString());
-                String location = jsonObject2.getString("title");
-                long date = jsonObject2.getLong("time");
-                int magnitude = jsonObject2.getInt("mag");
-                SimpleDateFormat simpleDateFormatDate = new SimpleDateFormat("LLL dd, yyyy");
-                SimpleDateFormat simpleDateFormatTime = new SimpleDateFormat("h:mm a");
-                Date date1 = new Date(date);
-                earthquakes.add(new Earthquake(getLocation(location), simpleDateFormatDate.format(date1), magnitude,simpleDateFormatTime.format(date1),getSpeed(location)));
-            }
-
-        } catch (JSONException e) {
-            // If an error is thrown when executing any of the above statements in the "try" block,
-            // catch the exception here, so the app doesn't crash. Print a log message
-            // with the message from the exception.
-            Log.e("QueryUtils", "Problem parsing the earthquake JSON results", e);
-        }
-
-        // Return the list of earthquakes
-        return earthquakes;
-    }
-    public static String getSpeed(String s){
-        int index = -1;
-        if(s.contains("of")){
-            index  = s.indexOf("of");
-        }
-        if(index != -1){
-            return s.substring(0,index+2);
-        }
-        return s;
-    }
-
-    public static String getLocation(String s){
-        int index = -1;
-        if(s.contains("of")){
-            index  = s.indexOf("of");
-        }
-        if(index != -1){
-            return s.substring(index+3);
-        }
-        return s;
-    }
 }
