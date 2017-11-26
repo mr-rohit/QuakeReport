@@ -1,9 +1,13 @@
 package com.example.android.quakereport;
 
 
+
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+
+import android.support.v4.app.LoaderManager;
+import android.support.v4.content.Loader;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -14,39 +18,18 @@ import android.view.ViewGroup;
 import java.util.ArrayList;
 import java.util.List;
 
-public class EarthquakeListFragment extends Fragment{
+public class EarthquakeListFragment extends Fragment implements LoaderManager.LoaderCallbacks<List<Earthquake>> {
 
     List<Earthquake> mEarthquakeList = new ArrayList<>();
-
-   // public TaskComplete taskComplete;
-
-
-  /*  @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-        try{
-            taskComplete = (TaskComplete) context;
-            Log.d("24Nov","TaskComplete" );
-        }catch(ClassCastException e){
-            Log.d("24Nov","Error: " + e.toString());
-        }
-
-    }*/
-
-
-    /* public void setOnTaskComplete(TaskComplete onTaskComplete ){
-        onTaskComplete = taskComplete;
-    }*/
-
+    RecyclerView mRecyclerView;
+    EarthquakeAdapter mEarthquakeAdapter;
 
     private static final String USGS_REQUEST_URL =
             "https://earthquake.usgs.gov/fdsnws/event/1/query?format=geojson&orderby=time&minmag=6&limit=10";
 
     public static EarthquakeListFragment newInstance() {
-
         return new EarthquakeListFragment();
     }
-
 
 
     @Nullable
@@ -55,31 +38,34 @@ public class EarthquakeListFragment extends Fragment{
         final View view = inflater.inflate(R.layout.fragment_earthquake_list, container, false);
 
 
+        mRecyclerView = view.findViewById(R.id.recycler_earthquake);
 
-        new EarthquakeAsyncTask(getActivity(), new QuakeInterface() {
-            @Override
-            public void data(List<Earthquake> earthquakes) {
-
-                if(earthquakes.size()>0){
-                    mEarthquakeList = earthquakes;
-                    EarthquakeAdapter earthquakeAdapter = new EarthquakeAdapter(mEarthquakeList);
-                    RecyclerView recyclerView = view.findViewById(R.id.recycler_earthquake);
-                    recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-                    recyclerView.setAdapter(earthquakeAdapter);
-                }
-
-                for(Earthquake earthquake:earthquakes){
-                    Log.d("24Nov","EarthQuake Details: " + earthquake.getLocation());
-                }
-
-            }
-        }).execute(USGS_REQUEST_URL);
-
-
+        mEarthquakeAdapter = new EarthquakeAdapter(mEarthquakeList);
+        mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        mRecyclerView.setAdapter(mEarthquakeAdapter);
+        Log.d("Loader","initLoader");
+        getActivity().getSupportLoaderManager().initLoader(0,null,this);
         return view;
     }
 
 
+    @Override
+    public Loader<List<Earthquake>> onCreateLoader(int id, Bundle args) {
+        Log.d("Loader","onCreateLoader");
+        return new EarthquakeLoader(getContext());
+    }
+
+    @Override
+    public void onLoadFinished(Loader<List<Earthquake>> loader, List<Earthquake> data) {
+        Log.d("Loader","onLoadFinished");
+        mEarthquakeAdapter.setEarthquakeAdapterData(data);
+    }
+
+    @Override
+    public void onLoaderReset(Loader<List<Earthquake>> loader) {
+        Log.d("Loader","onLoaderReset");
+        mEarthquakeAdapter.setEarthquakeAdapterData(new ArrayList<Earthquake>());
+    }
 }
 
 

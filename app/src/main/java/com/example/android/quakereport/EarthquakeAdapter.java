@@ -18,6 +18,11 @@ public class EarthquakeAdapter extends RecyclerView.Adapter<EarthquakeAdapter.Ea
         this.mEarthquakeList = mEarthquakeList;
     }
 
+    public void setEarthquakeAdapterData(List<Earthquake> earthquakeAdapterData){
+        mEarthquakeList.clear();
+        mEarthquakeList.addAll(earthquakeAdapterData);
+        notifyDataSetChanged();
+    }
     @Override
     public EarthquakeViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_earthquake,parent,false);
@@ -59,4 +64,5 @@ public class EarthquakeAdapter extends RecyclerView.Adapter<EarthquakeAdapter.Ea
     private Earthquake getItem(int position){
         return mEarthquakeList.get(position);
     }
+
 }
