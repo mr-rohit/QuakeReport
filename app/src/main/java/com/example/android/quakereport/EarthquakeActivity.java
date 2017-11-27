@@ -18,7 +18,7 @@ public class EarthquakeActivity extends AppCompatActivity {
         setContentView(R.layout.earthquake_activity);
 
             EarthquakeListFragment earthquakeListFragment = EarthquakeListFragment.newInstance();
-            getSupportFragmentManager().beginTransaction().replace(R.id.container, earthquakeListFragment).commit();
+            getSupportFragmentManager().beginTransaction().replace(R.id.container, earthquakeListFragment).addToBackStack(null).commit();
 
 
     }
