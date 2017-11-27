@@ -35,11 +35,13 @@ public class EarthquakeLoader extends AsyncTaskLoader<List<Earthquake>> {
         mContext = context;
     }
 
+
     @Override
     public List<Earthquake> loadInBackground() {
         Log.d("Loader","loadInBackground");
         String earthquakeJsonUrl = "https://earthquake.usgs.gov/fdsnws/event/1/query?format=geojson&orderby=time&minmag=6&limit=10";
         URL url = null;
+
         try {
             url = new URL(earthquakeJsonUrl);
             HttpsURLConnection urlConnection = (HttpsURLConnection) url.openConnection();
@@ -143,5 +145,5 @@ public class EarthquakeLoader extends AsyncTaskLoader<List<Earthquake>> {
         }
         return result;
     }
-    
+
 }
